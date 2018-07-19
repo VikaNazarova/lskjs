@@ -109,7 +109,7 @@ export default class Uapp extends Core {
   }
 
   getRoutes() {
-    return require('./router').default(this)
+    return require('./router').default(this);
   }
 
   resetPage() {

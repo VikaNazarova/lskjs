@@ -1,7 +1,7 @@
 const express = require('express');
 const consolevoid = { log() {} };
 // var consolevoid = console
-const exp = {};
+// const exp = {};
     // #endregion
     // #region Types and Constants
 let DEFAULT_SENDER = function (req, res, val) { res.send(val); },
@@ -49,11 +49,11 @@ function AsyncRouter(options) {
   };
   return asyncRouter;
 }
-exp.AsyncRouter = AsyncRouter;
+// exp.AsyncRouter = AsyncRouter;
 function create(options) {
   return AsyncRouter(options);
 }
-exp.create = create;
+// exp.create = create;
     // #endregion
     // #region Private Methods
 function getSender(options) {
@@ -187,4 +187,4 @@ function once(fn) {
   };
 }
 
-module.exports = exp;
+export { AsyncRouter, create };
