@@ -19,24 +19,24 @@ export default class Root extends Component {
 
   static propTypes = {
     history: PropTypes.object.isRequired,
-    insertCss: PropTypes.func.isRequired,
+    // insertCss: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
   };
 
   static childContextTypes = {
     history: PropTypes.object.isRequired,
-    insertCss: PropTypes.func.isRequired,
-    addClassToHtml: PropTypes.func.isRequired,
-    removeClassToHtml: PropTypes.func.isRequired,
+    // insertCss: PropTypes.func.isRequired,
+    // addClassToHtml: PropTypes.func.isRequired,
+    // removeClassToHtml: PropTypes.func.isRequired,
     // mobxStores: MobxTypes.objectOrObservableObject.isRequired,
   };
 
   getChildContext() {
     return {
       history: this.props.history,
-      insertCss: this.props.insertCss,
-      addClassToHtml: Root.addClassToHtml,
-      removeClassToHtml: Root.removeClassToHtml,
+      // insertCss: this.props.insertCss,
+      // addClassToHtml: Root.addClassToHtml,
+      // removeClassToHtml: Root.removeClassToHtml,
     };
   }
 
@@ -98,6 +98,7 @@ export default class Root extends Component {
     const { uapp } = this.props;
     let { children } = this.props;
 
+    children = <React.Fragment>{children}</React.Fragment>;
 
     DEBUG && console.log('Root.render2');
 

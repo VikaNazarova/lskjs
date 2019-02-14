@@ -184,7 +184,10 @@ export default class ReactApp extends Core {
     });
     return uapp.page;
   }
-
+  async stop(req) {
+    this.uapp?.page?.exit();
+    return super.stop()
+  }
 
   @autobind
   postRender() {

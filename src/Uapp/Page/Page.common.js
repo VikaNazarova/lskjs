@@ -2,8 +2,8 @@ import React from 'react';
 import merge from 'lodash/merge';
 import Promise from 'bluebird';
 
-// const DEBUG = __DEV__;
-const DEBUG = false;
+let DEBUG = __DEV__;
+DEBUG = false;
 
 export default class Page {
   _page = true;

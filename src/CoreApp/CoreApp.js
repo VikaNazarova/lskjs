@@ -67,7 +67,7 @@ export default class CoreApp extends ExpressApp {
   getMongooseModels() {
     const models = this.getModels();
     return mapValues(models, (model) => {
-      if (model._universal) {
+      if (model && model._universal) {
         return model.getMongooseModel(this.db);
       }
       return model;

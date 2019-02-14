@@ -222,6 +222,9 @@ export default class Uapp extends Core {
 
   // prepareNotificationData = require('./helpers/prepareNotificationData').default;
   // toast = require('./helpers/toast').default.bind(this);
+  toast(params) {
+    console.log('Uapp.toast', params) ;
+  }
 
 
   @autobind
