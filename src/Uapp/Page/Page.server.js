@@ -1,6 +1,9 @@
+import React from 'react';
 import get from 'lodash/get';
 import map from 'lodash/map';
-import ReactDOM from 'react-dom/server';
+import { renderToString, renderToNodeStream } from 'react-dom/server';
+import { renderStylesToString, renderStylesToNodeStream } from 'emotion-server';
+import { css } from 'emotion';
 
 import BasePage from './Page.client';
 
@@ -239,12 +242,58 @@ ${this.footer || ''}
 `;
   }
 
+  renderHtmlWrapper(body) {
+    return `\
+    <!doctype html>
+    <html class="${this.getHtmlClass()}">
+      <head>
+        ${this.renderHead()}
+      </head>
+      <body>
+        <div id="root"/>
+          ${body}
+        </div>
+        <script>
+          window.__ROOT_STATE__ = ${JSON.stringify(this.getRootState(), null, __DEV__ ? 4 : 0)};
+        </script>
+        ${this.renderAssets('js')}
+        ${this.renderFooter()}
+      </body>
+    </html>
+`;
+  }
+
+  renderToNodeStream(req, res) {
+    const delemitter = `<!-- ${Math.random()}--->`;
+    const [before, after] = this.renderHtmlWrapper(delemitter).split(delemitter);
+    const reactRoot = this.renderRootWithCatch();
+    res.write(before);
+    const stream = renderToNodeStream(reactRoot).pipe(renderStylesToNodeStream());
+    stream.pipe(res, { end: false });
+    stream.on('end', () => {
+      res.write(after);
+      res.end();
+    });
+  }
+
   renderHtml() {
-    let root;
+    const reactRoot = this.renderRootWithCatch();
+    const htmlRoot = renderStylesToString(renderToString(reactRoot));
+    return this.renderHtmlWrapper(htmlRoot);
+  }
+  renderRootWithCatch() {
     let rootDom;
     try {
       rootDom = this.renderRoot();
-      root = ReactDOM.renderToStaticMarkup(rootDom); // because async style render
+      return rootDom;
+      const Qwe = props => <div className={css`border: 1px red solid;`}>asdasdas</div>;
+      const App = () => (
+        <div>
+          <Qwe />
+          {rootDom}
+        </div>
+      );
+      return <App />;
     } catch (err) {
       const text = ['Error', 'Page.renderHtml', 'ReactDOM.renderToStaticMarkup', ''].join(':\n');
       console.error(text, err);
@@ -254,23 +303,5 @@ ${this.footer || ''}
       }
       return err.message;
     }
-    return `\
-  <!doctype html>
-  <html class="${this.getHtmlClass()}">
-    <head>
-      ${this.renderHead()}
-    </head>
-    <body>
-      <div id="root"/>
-        ${root}
-      </div>
-      <script>
-        window.__ROOT_STATE__ = ${JSON.stringify(this.getRootState(), null, __DEV__ ? 4 : 0)};
-      </script>
-      ${this.renderAssets('js')}
-      ${this.renderFooter()}
-    </body>
-  </html>
-      `;
   }
 }

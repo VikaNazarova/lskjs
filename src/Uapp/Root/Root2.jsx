@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import DevTools from 'mobx-react-devtools';
+import NotificationSystem from 'react-notification-system';
 import { Provider } from 'mobx-react';
 import { ThemeProvider } from 'emotion-theming';
 
@@ -98,6 +100,50 @@ export default class Root extends Component {
     const { uapp } = this.props;
     let { children } = this.props;
 
+    children = (
+      <div>
+        {children}
+        <NotificationSystem
+          ref={(n) => {
+            if (uapp) {
+              uapp.notificationSystem = n;
+            } else {
+              __DEV__ && console.log('LSK/Root !uapp');
+            }
+          }}
+          style={{
+            NotificationItem: { // Override the notification item
+              DefaultStyle: { // Applied to every notification, regardless of the notification level
+                padding: '0px',
+                backgroundColor: '#ffffff',
+                boxShadow: '0 20px 30px 0 rgba(0, 0, 0, 0.2)',
+                border: 'none',
+                borderRadius: 2,
+                overflow: 'hidden',
+              },
+            },
+            Dismiss: {
+              DefaultStyle: {
+                zIndex: '100',
+                color: '#9b9b9b',
+                backgroundColor: 'transparent',
+                fontSize: 18,
+                top: 6,
+                right: 6,
+              },
+            },
+          }}
+        />
+        {DEBUG && (
+          <DevTools
+            position={{
+            bottom: 0,
+            right: 20,
+          }}
+          />
+        )}
+      </div>
+    );
 
     DEBUG && console.log('Root.render2');
 

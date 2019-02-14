@@ -220,8 +220,8 @@ export default class Uapp extends Core {
   initI18 = require('./i18/initI18').default;
   i19 = new I19(this);
 
-  prepareNotificationData = require('./helpers/prepareNotificationData').default;
-  toast = require('./helpers/toast').default.bind(this);
+  // prepareNotificationData = require('./helpers/prepareNotificationData').default;
+  // toast = require('./helpers/toast').default.bind(this);
 
 
   @autobind

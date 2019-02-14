@@ -2,7 +2,7 @@ import React from 'react';
 import autobind from 'core-decorators/lib/autobind';
 import Favico from 'favico.js';
 import NProgress from 'nprogress';
-import SmoothScroll from '../utils/UniversalSmoothScroll';
+// import SmoothScroll from '../utils/UniversalSmoothScroll';
 import BaseUapp from './Uapp.common';
 
 
@@ -37,15 +37,15 @@ export default class Uapp extends BaseUapp {
     this.favico = new Favico({
       animation: 'none',
     });
-    this.scroll = new SmoothScroll('a[href*="asdjhashdkjasdkja"]', {
-      speed: 500,
-      offset: -300,
-      easing: 'easeInOutCubic',
-    });
+    // this.scroll = new SmoothScroll('a[href*="asdjhashdkjasdkja"]', {
+    //   speed: 500,
+    //   offset: -300,
+    //   easing: 'easeInOutCubic',
+    // });
   }
 
-  prepareNotificationData = require('./helpers/prepareNotificationData').default;
-  toast = require('./helpers/toast').default.bind(this);
+  // prepareNotificationData = require('./helpers/prepareNotificationData').default;
+  // toast = require('./helpers/toast').default.bind(this);
 
 
   @autobind
@@ -61,15 +61,15 @@ export default class Uapp extends BaseUapp {
     return this.confirmRef?.open(props);
   }
 
-  scrollTo(selector) {
-    if (this.scroll) {
-      if (!selector) return null;
-      const field = document.querySelector(selector);
-      if (!field) return null;
-      this.scroll.animateScroll(field);
-    }
-    return null;
-  }
+  // scrollTo(selector) {
+  //   if (this.scroll) {
+  //     if (!selector) return null;
+  //     const field = document.querySelector(selector);
+  //     if (!field) return null;
+  //     this.scroll.animateScroll(field);
+  //   }
+  //   return null;
+  // }
 
 
   async checkVersion() {

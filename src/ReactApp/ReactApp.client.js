@@ -1,16 +1,15 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import initReactFastClick from 'react-fastclick';
 import qs from 'qs';
 import { createPath } from 'history/PathUtils';
-import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 import { autobind } from 'core-decorators';
-import Uapp from '../Uapp';
 import merge from 'lodash/merge';
 import get from 'lodash/get';
-import Core from '../Core';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { AppContainer } from 'react-hot-loader';
+import Core from '../Core';
+import Uapp from '../Uapp';
+import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 
 const DEBUG = __DEV__ && false;
 
@@ -124,7 +123,13 @@ export default class ReactApp extends Core {
       // if (module.hot) {
       //   this.appInstance = ReactDOM.render(React.createElement(AppContainer, {key: Math.random(), warnings: false, children: root}), this.container, this.postRender);
       // } else {
-      this.appInstance = ReactDOM.render(root, this.container, () => this.postRender());
+
+      // Check if the root node has any children to detect if the app has been prerendered
+      if (this.container.hasChildNodes()) {
+        this.appInstance = ReactDOM.hydrate(root, this.container, () => this.postRender());
+      } else {
+        this.appInstance = ReactDOM.render(root, this.container, () => this.postRender());
+      }
       // }
     } catch (err) {
       this.log.error('CSR renderRoot err (REACT RENDER ERROR)', err);

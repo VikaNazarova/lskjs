@@ -18,6 +18,8 @@ export default async function (...args) {
       return moment(...momentArgs).locale(this.i18.locale);
     };
     this.i18.m = m;
+  } else {
+    this.i18.m = require('moment');
   }
   this.t = (...args2) => {
     return (this.i18.t(...args2) || args2[0] || '').replace(/\\n/ig, '\n');

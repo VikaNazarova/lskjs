@@ -20,6 +20,7 @@ export default function (rawData = {}) {
           type: `notify${subType}`,
           info: {
             title: data.title,
+            title: data.title,
             text: data.text,
             // image: systemUser.avatar,
           },
