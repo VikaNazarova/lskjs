@@ -11,7 +11,9 @@ function isTouchDevice() {
   return result;
 }
 
-const DEBUG = false;
+let DEBUG = __DEV__;
+//  DEBUG = false;
+
 
 export default class Root extends Component {
   Provider = Provider;

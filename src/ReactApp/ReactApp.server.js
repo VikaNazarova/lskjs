@@ -100,7 +100,7 @@ export default class ReactApp extends CoreApp {
         return res.redirect(page.state.redirect);
       }
 
-      const streamed = false
+      const streamed = req.query.streamed || false;
       if (streamed) {
         return page.renderToNodeStream(req, res);
       }

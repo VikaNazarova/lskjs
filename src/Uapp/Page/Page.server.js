@@ -268,7 +268,7 @@ ${this.footer || ''}
     const [before, after] = this.renderHtmlWrapper(delemitter).split(delemitter);
     const reactRoot = this.renderRootWithCatch();
     res.write(before);
-    const stream = renderToNodeStream(reactRoot).pipe(renderStylesToNodeStream());
+    const stream = renderToNodeStream(reactRoot); // .pipe(renderStylesToNodeStream());
     stream.pipe(res, { end: false });
     stream.on('end', () => {
       res.write(after);
@@ -278,7 +278,8 @@ ${this.footer || ''}
 
   renderHtml() {
     const reactRoot = this.renderRootWithCatch();
-    const htmlRoot = renderStylesToString(renderToString(reactRoot));
+    let htmlRoot = renderToString(reactRoot);
+    // htmlRoot = renderStylesToString(htmlRoot);
     return this.renderHtmlWrapper(htmlRoot);
   }
   renderRootWithCatch() {
