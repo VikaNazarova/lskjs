@@ -1,5 +1,11 @@
-export default (target: {}, ...arrayAppOrProps: Array<{ _module: string | null, app: {} | null, parent: {} | null }>): void => {
-  let props: { app: {} | null, parent: { app: {} | null, _module: string | null } | null } = {};
+export type AppProps = {
+  _module: string | null;
+  app: AppProps | null;
+  parent: AppProps | null;
+};
+
+export default (target: object, ...arrayAppOrProps: AppProps[]): void => {
+  let props: AppProps;
   arrayAppOrProps.forEach((appOrProps) => {
     if (appOrProps && appOrProps._module) {
       if (appOrProps._module === 'app') {

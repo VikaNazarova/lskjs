@@ -76,7 +76,6 @@ import hashCode from '@lskjs/utils/hashCode';
 // console.log(colors.inverse('inverse'))
 // console.log(colors.hidden('hidden'))
 // console.log(colors.strikethrough('strikethrough'))
-
 // console.log(colors.rainbow('rainbow'))
 // console.log(colors.zebra('zebra'))
 // console.log(colors.america('america'))
