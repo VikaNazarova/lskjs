@@ -104,6 +104,9 @@ test('Anna', () => {
   test('empty "" ', () => {
     expect(isPalindrom('')).toBe(true);
   });
+  test('a nna', () => {
+    expect(isPalindrom('a nna')).toBe(true);
+  });
 //   test('01', () => {
 //     expect(isPalindrom(01)).toBe(false);
 //   });
